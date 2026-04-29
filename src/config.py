@@ -1,3 +1,6 @@
+# Reproducibility
+SEED = 42
+
 # Hyperparameters for optimization algos
 N_ITERATIONS = 20000
 LEARNING_RATE = 0.1
@@ -7,6 +10,8 @@ BATCH_SIZE_SGD = 32
 # Dataset generation params
 CONDITION_NUMBERS = [10, 1e2, 1e4, 1e6]
 NOISE_LEVELS = [0.01, 0.1, 1.0]
+N_SAMPLES = 500
+N_FEATURES = 20
 SELECTED_KAPPA = 1e4
 SELECTED_NOISE_STD = 0.1
 

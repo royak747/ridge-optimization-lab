@@ -1,8 +1,9 @@
 import numpy as np
 import os
 import json
+import pickle
 from src.data_generation import generate_ill_conditioned_data
-from src.config import CONDITION_NUMBERS, NOISE_LEVELS, DATA_DIR
+from src.config import CONDITION_NUMBERS, NOISE_LEVELS, DATA_DIR, SEED, N_SAMPLES, N_FEATURES
 
 def main():
     datasets = {}
@@ -12,11 +13,11 @@ def main():
     for kappa in CONDITION_NUMBERS:
         for noise_std in NOISE_LEVELS:
             X, y, beta_true, singular_values = generate_ill_conditioned_data(
-                n_samples=500,
-                n_features=20,
+                n_samples=N_SAMPLES,
+                n_features=N_FEATURES,
                 condition_number=kappa,
                 noise_std=noise_std,
-                random_state=42
+                random_state=SEED
             )
 
             datasets[(kappa, noise_std)] = {
@@ -26,7 +27,7 @@ def main():
                 "singular_values": singular_values.tolist(),
                 "actual_condition_number": float(np.linalg.cond(X))
             }
-            
+
             print(
                 f"kappa target={kappa:.0e}, "
                 f"noise={noise_std}, "
@@ -35,8 +36,10 @@ def main():
             )
 
             # Save datasets to disk for later use as json file
-            with open(os.path.join(DATA_DIR, f"dataset_kappa_{kappa}_noise_{noise_std}.json"), "w") as f:
-                json.dump(datasets[(kappa, noise_std)], f)
+            # Save it as a dictionary where I can access as datasets.items()
+            with open(os.path.join(DATA_DIR, "datasets.pkl"), "wb") as f:
+                pickle.dump(datasets, f)
+
 
 # Run command: python -m scripts.run_data_generation
 if __name__ == "__main__":

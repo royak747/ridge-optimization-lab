@@ -35,6 +35,7 @@ output/
 *.tmp
 
 # Environment variables/secrets
+.venv/
 .env
 .env.local
 *.key

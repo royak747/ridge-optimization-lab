@@ -62,6 +62,6 @@ def main():
     plt.savefig(os.path.join("artifacts", "gd_loss_vs_iterations.jpg"))
     plt.show()
         
-# Run command: python -m scripts.run_gradient_descent
+# Run command: python -m scripts.run_standard_gd
 if __name__ == "__main__":
     main()

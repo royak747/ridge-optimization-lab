@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Jupyter/Colab specific
+.ipynb_checkpoints/
+# Optionally ignore all notebooks if you only want to commit script files
+# *.ipynb
+
+# Colab temp files (often hidden)
+.config/
+sample_data/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and output files (if you create these directories)
+log/
+logs/
+output/
+*.log
+*.temp
+*.tmp
+
+# Environment variables/secrets
+.env
+.env.local
+*.key
+*.pem
+config.ini
+api_keys.py
+
+# Data files (if generated or large, and not meant for version control)
+*.csv
+*.tsv
+*.pkl
+*.hdf5
+*.json
+*.yaml
+*.xml

@@ -45,7 +45,7 @@ def main():
 
     # --- Plot Convergence Behavior using Ridge GD
     lambda_vals = [0, 1e-4, 1e-3, 1e-2, 1e-1, 1]
-    learning_rate = 0.01
+    learning_rate = 0.1
 
     plt.figure(figsize=(8, 5))
 

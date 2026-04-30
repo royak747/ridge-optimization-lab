@@ -4,7 +4,7 @@ import pickle
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from src.gradient_descent_ridge import gradient_descent_ridge
-from src.config import CONDITION_NUMBERS, NOISE_LEVELS, N_ITERATIONS, LEARNING_RATE, DATA_DIR, LAMBDA_VALS, LAMBDA_VAL_COMPARISON, SELECTED_KAPPA, SELECTED_NOISE_STD
+from src.config import CONDITION_NUMBERS, NOISE_LEVELS, N_ITERATIONS, LEARNING_RATE, DATA_DIR, LAMBDA_VALS, LAMBDA_VAL_COMPARISON, SELECTED_KAPPA, SELECTED_NOISE_STD, LEARNING_RATE, N_EPOCHS_SGD, BATCH_SIZE_SGD
 
 def main():
     lambda_vals = LAMBDA_VALS
@@ -16,9 +16,9 @@ def main():
 
     for lambda_val in lambda_vals:
         #lr = ridge_lr(X, lambda_val)
-        lr = 0.1
+        learning_rate = LEARNING_RATE
 
-        weights, weight_history, loss_history, distance_history = gradient_descent_ridge(X_selected, y_selected, learning_rate=lr, lambda_val=lambda_val, n_iterations=1000)
+        weights, weight_history, loss_history, distance_history = gradient_descent_ridge(X_selected, y_selected, learning_rate=learning_rate, lambda_val=lambda_val, n_iterations=1000)
 
         print(
             f"lambda={lambda_val:.0e}, "
@@ -31,7 +31,7 @@ def main():
     for lambda_val in lambda_vals:
         weights, weight_history, loss_history, distance_history = gradient_descent_ridge(
             X_selected, y_selected,
-            learning_rate=0.1,
+            learning_rate=learning_rate,
             lambda_val=lambda_val,
             n_iterations=1000
         )
@@ -42,7 +42,7 @@ def main():
     plt.legend()
     plt.grid(True)
     # Save the graph to artifacts/
-    plt.savefig(os.path.join("artifacts", "ridge_gd_loss_vs_iterations.jpg"))
+    plt.savefig(os.path.join("artifacts", "2. ridge_gd_loss_vs_iterations.jpg"))
 
     # Another graph
     plt.figure(figsize=(10, 6))
@@ -61,7 +61,7 @@ def main():
     plt.legend()
     plt.grid(True)
     # Save the graph to artifacts/
-    plt.savefig(os.path.join("artifacts", "ridge_gd_distance_to_optimum.jpg"))
+    plt.savefig(os.path.join("artifacts", "3. ridge_gd_distance_to_optimum.jpg"))
 
             
 

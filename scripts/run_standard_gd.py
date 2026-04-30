@@ -59,8 +59,8 @@ def main():
         plt.grid(True, which="both", ls="--", c='0.7')
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     # Save the graph to artifacts/
-    plt.savefig(os.path.join("artifacts", "gd_loss_vs_iterations.jpg"))
-    plt.show()
+    plt.savefig(os.path.join("artifacts", "1. gd_loss_vs_iterations.jpg"))
+    # plt.show()
         
 # Run command: python -m scripts.run_standard_gd
 if __name__ == "__main__":

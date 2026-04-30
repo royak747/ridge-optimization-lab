@@ -17,6 +17,8 @@ from src.config import (
     SELECTED_KAPPA,
     SELECTED_NOISE_STD,
     BATCH_SIZE_SGD,
+    LAMBDA_VALS,
+    LEARNING_RATE
 )
 
 from sklearn.model_selection import train_test_split
@@ -44,8 +46,8 @@ def main():
     y_train = y_train - y_mean
 
     # --- Plot Convergence Behavior using Ridge GD
-    lambda_vals = [0, 1e-4, 1e-3, 1e-2, 1e-1, 1]
-    learning_rate = 0.1
+    lambda_vals = LAMBDA_VALS
+    learning_rate = LEARNING_RATE
 
     plt.figure(figsize=(8, 5))
 
@@ -65,7 +67,7 @@ def main():
     plt.title("UCI Energy Efficiency: Ridge GD Objective vs. Iteration")
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(OUTPUT_DIR, "uci_ridge_gd_loss_vs_iterations.jpg"))
+    plt.savefig(os.path.join(OUTPUT_DIR, "10. uci_ridge_gd_loss_vs_iterations.jpg"))
 
     # --- Re-run the optimization to capture distance to optimum histories
     lambda_val_comparison = 1e-4
@@ -106,21 +108,35 @@ def main():
 
     plt.figure(figsize=(10, 6))
 
-    plt.semilogy(distance_std, label='Standard GD Distance to Optimum', linestyle='--')
-    plt.semilogy(distance_gd, label=f'Ridge GD Distance to Optimum, λ={lambda_val_comparison}')
+    n_samples = X_train.shape[0]
+    batch_size = 32  # make sure this matches your SGD call
 
-    # Plot SGD Distance to Optimum, aligning per epoch
-    updates_per_epoch_real = int(np.ceil(X_train.shape[0] / 32)) # Assuming batch_size=32
-    sgd_epochs_x_axis_real = np.arange(1, n_epochs_sgd + 1)
-    sgd_distances_at_epoch_end_real = [distance_sgd_real[i * updates_per_epoch_real] for i in sgd_epochs_x_axis_real]
-    plt.semilogy(sgd_epochs_x_axis_real, sgd_distances_at_epoch_end_real, label=f'Ridge SGD Distance to Optimum (per Epoch), λ={lambda_val_comparison}')
+    # GD (full batch)
+    gd_data_passes = np.arange(len(distance_std))  # 1 iteration = 1 pass
+    ridge_gd_data_passes = np.arange(len(distance_gd))
 
-    plt.xlabel("Iterations / Epochs")
+    plt.semilogy(gd_data_passes, distance_std, linestyle='--',
+                label='Standard GD Distance to Optimum')
+
+    plt.semilogy(ridge_gd_data_passes, distance_gd,
+                label=f'Ridge GD Distance to Optimum, λ={lambda_val_comparison}')
+
+    # SGD (mini-batch)
+    sgd_updates = np.arange(len(distance_sgd_real))
+    sgd_data_passes = sgd_updates * (batch_size / n_samples)
+
+    plt.semilogy(sgd_data_passes, distance_sgd_real,
+                label=f'Ridge SGD Distance to Optimum (work-normalized), λ={lambda_val_comparison}',
+                alpha=0.8)
+
+    # Final touches
+    plt.xlabel("Approximate Data Passes")
     plt.ylabel("||w - w*|| (Log Scale)")
-    plt.title("UCI Energy Efficiency: GD vs. Ridge GD vs. Ridge SGD (Distance to Optimum)")
+    plt.title("UCI Energy Efficiency: Work-Normalized GD vs. Ridge GD vs. Ridge SGD")
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(OUTPUT_DIR, "uci_gd_sgd_distance_to_optimum_comparison.jpg"))
+
+    plt.savefig(os.path.join(OUTPUT_DIR, "11. uci_gd_sgd_distance_to_optimum_work_normalized.jpg"))
 
 
 # Run command: python -m scripts.run_UCI_experiment

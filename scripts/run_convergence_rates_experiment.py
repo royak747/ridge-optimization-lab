@@ -19,19 +19,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import pickle
 
 from src.config import (
     BATCH_SIZE_SGD,
+    DATA_DIR,
     LAMBDA_VAL_COMPARISON,
     LEARNING_RATE,
     N_EPOCHS_SGD,
     N_ITERATIONS,
     OUTPUT_DIR,
+    SELECTED_KAPPA,
+    SELECTED_NOISE_STD,
 )
 from src.gradient_descent_ridge import gradient_descent_ridge, ridge_closed_form_solution
 from src.sgd_ridge import ridge_sgd
 from src.standard_gradient_descent import gradient_descent
-from src.UCI_data_gen import load_ucirepo_dataset
 
 
 EPS = 1e-14
@@ -130,12 +133,18 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # Data loading and preprocessing
-    X, y = load_ucirepo_dataset("boston_housing")
+    # Load from data/datasets.pkl, which should contain a single dataset with the selected kappa and noise std.
+    with open(os.path.join(DATA_DIR, "datasets.pkl"), "rb") as f:
+        data_dict = pickle.load(f)
 
-    X_real = X.to_numpy(dtype=float)
+    data = data_dict[(SELECTED_KAPPA, SELECTED_NOISE_STD)]
 
-    # Use the first target column. If the dataset has one target, this is just y.
-    y_real = y.iloc[:, 0].to_numpy(dtype=float)
+    X = data["X"]
+    y = data["y"]
+
+    # Convert safely regardless of list / array
+    X_real = np.asarray(X, dtype=float)
+    y_real = np.asarray(y, dtype=float)
 
     X_train, X_test, y_train, y_test = train_test_split(
         X_real,
@@ -143,10 +152,6 @@ def main():
         test_size=0.2,
         random_state=42,
     )
-
-    scaler_X = StandardScaler()
-    X_train = scaler_X.fit_transform(X_train)
-    X_test = scaler_X.transform(X_test)
 
     # Centering y makes the no-intercept model reasonable.
     y_mean = y_train.mean()

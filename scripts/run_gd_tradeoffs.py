@@ -218,7 +218,7 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "gd_methods_distance_to_optimum.jpg"), dpi=300)
+    plt.savefig(os.path.join(OUTPUT_DIR, "5. gd_methods_distance_to_optimum.jpg"), dpi=300)
     plt.close()
 
     # Plot 3: Work-normalized distance comparison by data passes
@@ -262,13 +262,13 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
+    plt.savefig(os.path.join(OUTPUT_DIR, "6. gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
     plt.close()
 
-    print("Saved plots:")
+'''    print("Saved plots:")
     print(os.path.join(OUTPUT_DIR, "gd_methods_objective_comparison.jpg"))
     print(os.path.join(OUTPUT_DIR, "gd_methods_distance_to_optimum.jpg"))
-    print(os.path.join(OUTPUT_DIR, "gd_methods_distance_to_optimum_work_normalized.jpg"))
+    print(os.path.join(OUTPUT_DIR, "gd_methods_distance_to_optimum_work_normalized.jpg"))'''
 
 
 # Run command: python -m scripts.run_gd_tradeoffs

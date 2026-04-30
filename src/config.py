@@ -3,7 +3,7 @@ SEED = 42
 
 # Hyperparameters for optimization algos
 N_ITERATIONS = 20000
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.1
 N_EPOCHS_SGD = 2000
 BATCH_SIZE_SGD = 32
 

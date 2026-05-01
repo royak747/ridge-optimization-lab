@@ -9,12 +9,6 @@ def load_ucirepo_dataset(dataset_name):
     X = energy_efficiency.data.features
     y = energy_efficiency.data.targets
 
-    '''    # metadata
-    print(energy_efficiency.metadata)
-
-    # variable information
-    print(energy_efficiency.variables)'''
-
     return X, y
   
 

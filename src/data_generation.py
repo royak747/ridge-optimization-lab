@@ -1,15 +1,11 @@
 import numpy as np
 
-# Generate a synthetic linear regression dataset with a controlled condition number.
-'''
-    model:
-        y = X beta_true + noise
+# Generate synthetic datasets with a controlled condition number and noise level
 
-    The singular values of X are constructed so that:
-        condition_number(X) = largest singular value / smallest singular value
-'''
 def generate_ill_conditioned_data(n_samples=500, n_features=2, condition_number=1e4, noise_std=0.1, random_state=42):
     rng = np.random.default_rng(random_state)
+
+    # --- SVD
 
     # Random orthonormal matrices U and V
     A = rng.normal(size=(n_samples, n_features))
@@ -21,8 +17,10 @@ def generate_ill_conditioned_data(n_samples=500, n_features=2, condition_number=
     # Singular values decay from 1 to 1 / condition_number
     singular_values = np.geomspace(1, 1 / condition_number, n_features)
 
-    # Construct X = U S V^T
+    # Construct X = U Sigma V^T
     X = U @ np.diag(singular_values) @ V.T
+
+    # --- Response model: y = X beta_true + noise
 
     # True parameter vector
     beta_true = rng.normal(size=n_features)

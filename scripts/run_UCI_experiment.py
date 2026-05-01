@@ -52,7 +52,7 @@ def main():
     plt.figure(figsize=(8, 5))
 
     for lambda_val in lambda_vals:
-        weights, weight_history, loss_history, distance_history = gradient_descent_ridge(
+        _, _, loss_history, _ = gradient_descent_ridge(
             X_train,
             y_train,
             learning_rate=learning_rate,
@@ -67,15 +67,15 @@ def main():
     plt.title("UCI Energy Efficiency: Ridge GD Objective vs. Iteration")
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(OUTPUT_DIR, "10. uci_ridge_gd_loss_vs_iterations.jpg"))
+    plt.savefig(os.path.join(OUTPUT_DIR, "9. uci_ridge_gd_loss_vs_iterations.jpg"))
 
-    # --- Re-run the optimization to capture distance to optimum histories
+    # Re-run the optimization to capture distance to optimum histories
     lambda_val_comparison = 1e-4
     n_iterations_gd = 2000
     n_epochs_sgd = 2000
 
-    # Standard GD: lambda = 0
-    _, _, loss_std, distance_std = gradient_descent_ridge(
+    # Standard GD: lambda = 0 with ridge
+    _, _, _, distance_std = gradient_descent_ridge(
         X_train, y_train,
         learning_rate=0.01,
         lambda_val=0,
@@ -83,15 +83,16 @@ def main():
     )
 
     # Ridge GD
-    _, _, loss_gd, distance_gd = gradient_descent_ridge(
+    _, _, _, distance_gd = gradient_descent_ridge(
         X_train, y_train,
         learning_rate=0.01,
         lambda_val=lambda_val_comparison,
         n_iterations=n_iterations_gd
     )
 
-    # Ridge SGD (using ridge_sgd_with_history for full weight history)
-    _, weight_history_sgd_real, loss_sgd = ridge_sgd(
+    # Ridge SGD
+    # using ridge_sgd_with_history for full weight history
+    _, weight_history_sgd_real, _ = ridge_sgd(
         X_train, y_train,
         learning_rate=0.01,
         lambda_val=lambda_val_comparison,
@@ -100,7 +101,6 @@ def main():
     )
 
     # Calculate optimal weights for comparison
-    w_star_std = ridge_closed_form_solution(X_train, y_train, 0) # OLS solution
     w_star_ridge = ridge_closed_form_solution(X_train, y_train, lambda_val_comparison)
 
     # Recalculate distance to optimum for SGD with the actual w_star_ridge
@@ -136,7 +136,7 @@ def main():
     plt.legend()
     plt.grid(True)
 
-    plt.savefig(os.path.join(OUTPUT_DIR, "11. uci_gd_sgd_distance_to_optimum_work_normalized.jpg"))
+    plt.savefig(os.path.join(OUTPUT_DIR, "10. uci_gd_sgd_distance_to_optimum_work_normalized.jpg"))
 
 
 # Run command: python -m scripts.run_UCI_experiment

@@ -23,24 +23,26 @@ def main():
         y = data["y"]
         beta_true = data["beta_true"]
 
+        # Run standard GD and store results
         weights_final, weight_history, loss_history, gradient_norm_history, parameter_error_history = gradient_descent(
             X, y, learning_rate=learning_rate, n_iterations=n_iterations, beta_true=beta_true
         )
 
         gd_results[(kappa, noise_std)] = {
             "weights_final": weights_final,
-            "weight_history": weight_history, # Added this line to store the weight_history
+            "weight_history": weight_history,
             "loss_history": loss_history,
             "gradient_norm_history": gradient_norm_history,
             "parameter_error_history": parameter_error_history
         }
 
         print(
-            f"Completed GD for kappa={kappa:.0e}, noise={noise_std}. "
-            f"Final Loss: {loss_history[-1]:.4f}, Final Parameter Error: {parameter_error_history[-1]:.4f}"
+            f"Completed GD for kappa={kappa:.0e}, noise={noise_std}. " # Print dataset info
+            f"Final Loss: {loss_history[-1]:.4f}, Final Parameter Error: {parameter_error_history[-1]:.4f}" # print final loss and parameter error for eaach dataset
         )
 
-    # Graphing
+    # --- Graphing
+    # Plot loss history for each dataset
     plt.figure(figsize=(15, 5 * len(NOISE_LEVELS)))
     plt.suptitle('Objective Value (MSE) vs. Iterations', fontsize=16)
 

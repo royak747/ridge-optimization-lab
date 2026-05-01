@@ -48,6 +48,7 @@ def gradient_descent(X, y, learning_rate, n_iterations=1000, random_state=None, 
         updated_errors = updated_predictions - y
         loss_history.append(np.mean(updated_errors ** 2))
 
+        # Compute parameter error if the true parameters are provided
         if beta_true is not None:
             parameter_error_history.append(np.linalg.norm(weights - beta_true))
 

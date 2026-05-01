@@ -4,7 +4,7 @@ import pickle
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from src.gradient_descent_ridge import gradient_descent_ridge
-from src.config import CONDITION_NUMBERS, NOISE_LEVELS, N_ITERATIONS, LEARNING_RATE, DATA_DIR, LAMBDA_VALS, LAMBDA_VAL_COMPARISON, SELECTED_KAPPA, SELECTED_NOISE_STD, LEARNING_RATE, N_EPOCHS_SGD, BATCH_SIZE_SGD
+from src.config import LEARNING_RATE, DATA_DIR, LAMBDA_VALS, SELECTED_KAPPA, SELECTED_NOISE_STD, LEARNING_RATE
 
 def main():
     lambda_vals = LAMBDA_VALS
@@ -15,7 +15,6 @@ def main():
     y_selected = datasets_dict[(SELECTED_KAPPA, SELECTED_NOISE_STD)]["y"]
 
     for lambda_val in lambda_vals:
-        #lr = ridge_lr(X, lambda_val)
         learning_rate = LEARNING_RATE
 
         weights, weight_history, loss_history, distance_history = gradient_descent_ridge(X_selected, y_selected, learning_rate=learning_rate, lambda_val=lambda_val, n_iterations=1000)

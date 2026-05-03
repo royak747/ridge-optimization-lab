@@ -1,22 +1,13 @@
 import numpy as np
 import os
-import pickle
 import matplotlib.pyplot as plt
 
 from src.sgd_ridge import ridge_sgd
 from src.gradient_descent_ridge import gradient_descent_ridge, ridge_closed_form_solution
-from src.standard_gradient_descent import gradient_descent
 from src.UCI_data_gen import load_ucirepo_dataset
 from src.config import (
-    N_ITERATIONS,
-    N_EPOCHS_SGD,
     LEARNING_RATE,
-    DATA_DIR,
     OUTPUT_DIR,
-    LAMBDA_VAL_COMPARISON,
-    SELECTED_KAPPA,
-    SELECTED_NOISE_STD,
-    BATCH_SIZE_SGD,
     LAMBDA_VALS,
     LEARNING_RATE
 )
@@ -30,8 +21,8 @@ def main():
     # Convert pandas objects to numpy
     X_real = X.to_numpy()
 
-    # Choose one target: heating load
-    y_real = y.iloc[:, 0].to_numpy()   # Y1
+    # Y1: heating load
+    y_real = y.iloc[:, 0].to_numpy() 
 
     # Train/test split
     X_train, X_test, y_train, y_test = train_test_split(X_real, y_real, test_size=0.2, random_state=42)

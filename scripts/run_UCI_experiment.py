@@ -122,7 +122,6 @@ def main():
                 label=f'Ridge SGD Distance to Optimum (work-normalized), λ={lambda_val_comparison}',
                 alpha=0.8)
 
-    # Final touches
     plt.xlabel("Approximate Data Passes")
     plt.ylabel("||w - w*|| (Log Scale)")
     plt.title("UCI Energy Efficiency: Work-Normalized GD vs. Ridge GD vs. Ridge SGD")

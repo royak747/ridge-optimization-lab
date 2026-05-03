@@ -34,7 +34,7 @@ def main():
             lambda_val=lambda_val,
             n_iterations=1000
         )
-        plt.semilogy(loss_history, label=fr"$\lambda={lambda_val}$")
+        plt.semilogy(loss_history, label=f"lambda={lambda_val}")
     plt.xlabel("Iteration")
     plt.ylabel("Ridge Objective")
     plt.title("Ridge Gradient Descent: Objective vs. Iteration")
@@ -55,7 +55,7 @@ def main():
 
         plt.semilogy(distance_history, label=f"lambda={lambda_val}")
     plt.xlabel("Iteration")
-    plt.ylabel(r"$\|w_k - w^*\|$")
+    plt.ylabel("||w_k - w^*||")
     plt.title("Ridge GD: Distance to Optimum")
     plt.legend()
     plt.grid(True)

@@ -261,7 +261,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "6. convergence_rate_comparison_gd_ridge_gd.jpg"))
+    # plt.savefig(os.path.join(OUTPUT_DIR, "6. convergence_rate_comparison_gd_ridge_gd.jpg"))
+    plt.show()
     plt.close()
 
     # Plot 2: Ridge SGD by mini-batch update
@@ -286,7 +287,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "7. convergence_rate_ridge_sgd_per_update.jpg"))
+    # plt.savefig(os.path.join(OUTPUT_DIR, "7. convergence_rate_ridge_sgd_per_update.jpg"))
+    plt.show()
     plt.close()
 
     # Plot 3: Ridge SGD by epoch

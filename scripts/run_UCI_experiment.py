@@ -59,7 +59,8 @@ def main():
     plt.title("UCI Energy Efficiency: Ridge GD Objective vs. Iteration")
     plt.legend()
     plt.grid(True)
-    plt.savefig(os.path.join(OUTPUT_DIR, "9. uci_ridge_gd_loss_vs_iterations.jpg"))
+    # plt.savefig(os.path.join(OUTPUT_DIR, "9. uci_ridge_gd_loss_vs_iterations.jpg"))
+    plt.show()
 
     # Re-run the optimization to capture distance to optimum histories
     lambda_val_comparison = 1e-4
@@ -127,8 +128,8 @@ def main():
     plt.title("UCI Energy Efficiency: Work-Normalized GD vs. Ridge GD vs. Ridge SGD")
     plt.legend()
     plt.grid(True)
-
-    plt.savefig(os.path.join(OUTPUT_DIR, "10. uci_gd_sgd_distance_to_optimum_work_normalized.jpg"))
+    # plt.savefig(os.path.join(OUTPUT_DIR, "10. uci_gd_sgd_distance_to_optimum_work_normalized.jpg"))
+    plt.show()
 
 
 # Run command: python -m scripts.run_UCI_experiment

@@ -157,7 +157,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "4. gd_methods_objective_comparison.jpg"), dpi=300)
+    # plt.savefig(os.path.join(OUTPUT_DIR, "4. gd_methods_objective_comparison.jpg"), dpi=300)
+    plt.show()
     plt.close()
 
 
@@ -204,7 +205,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "5. gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
+    # plt.savefig(os.path.join(OUTPUT_DIR, "5. gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
+    plt.show()
     plt.close()
 
 # Run command: python -m scripts.run_gd_tradeoffs

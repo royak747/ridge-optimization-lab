@@ -40,8 +40,8 @@ def main():
     plt.title("Ridge Gradient Descent: Objective vs. Iteration")
     plt.legend()
     plt.grid(True)
-    # Save the graph to artifacts/
-    plt.savefig(os.path.join("artifacts", "2. ridge_gd_loss_vs_iterations.jpg"))
+    # plt.savefig(os.path.join("artifacts", "2. ridge_gd_loss_vs_iterations.jpg"))
+    plt.show()
 
     # Another graph
     plt.figure(figsize=(10, 6))
@@ -59,9 +59,8 @@ def main():
     plt.title("Ridge GD: Distance to Optimum")
     plt.legend()
     plt.grid(True)
-    # Save the graph to artifacts/
-    plt.savefig(os.path.join("artifacts", "3. ridge_gd_distance_to_optimum.jpg"))
-
+    # plt.savefig(os.path.join("artifacts", "3. ridge_gd_distance_to_optimum.jpg"))
+    plt.show()
             
 
 # Run command: python -m scripts.run_ridge_gd

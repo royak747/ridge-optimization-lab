@@ -311,7 +311,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "8. convergence_rate_ridge_sgd_per_epoch.jpg"))
+    # plt.savefig(os.path.join(OUTPUT_DIR, "8. convergence_rate_ridge_sgd_per_epoch.jpg"))
+    plt.show()
     plt.close()
 
 

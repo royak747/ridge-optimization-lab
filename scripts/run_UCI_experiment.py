@@ -25,6 +25,7 @@ def main():
     y_real = y.iloc[:, 0].to_numpy() 
 
     # Train/test split
+    # Though test is not used, keeping it in case measurement on test set is desired later
     X_train, X_test, y_train, y_test = train_test_split(X_real, y_real, test_size=0.2, random_state=42)
 
     # Standardize features

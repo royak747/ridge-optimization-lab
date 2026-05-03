@@ -22,7 +22,8 @@ scripts/
   run_UCI_experiment.py
   run_convergence_rates_experiment.py
 artifacts/            
-data/                  
+data/   
+reports/               
 ```
 
 ## Setup

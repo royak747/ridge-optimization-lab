@@ -16,7 +16,7 @@ from src.config import (
     LAMBDA_VAL_COMPARISON,
     SELECTED_KAPPA,
     SELECTED_NOISE_STD,
-    BATCH_SIZE_SGD,
+    BATCH_SIZE_SGD
 )
 
 # Function for safe handling of values for semilogy plots
@@ -125,8 +125,43 @@ def main():
         f"Final Parameter Error to beta_true: {parameter_error_history_standard_gd[-1]:.4e}"
     )
 
-    # --- Graphing
-    # Work-normalized distance comparison by data passes
+       
+    # --- GD vs. SGD vs. Standard GD Objective Value Comparison
+    max_epoch_like = min(n_epochs_sgd + 1, len(loss_history_gd), len(loss_history_standard_gd))
+
+    plt.figure(figsize=(10, 6))
+
+    plt.semilogy(
+        np.arange(max_epoch_like),
+        safe_semilogy_values(loss_history_gd[:max_epoch_like]),
+        label="Ridge GD Objective",
+    )
+    plt.semilogy(
+        np.arange(1, len(loss_history_sgd) + 1),
+        safe_semilogy_values(loss_history_sgd),
+        label="Ridge SGD Objective (per Epoch)",
+    )
+    plt.semilogy(
+        np.arange(max_epoch_like),
+        safe_semilogy_values(loss_history_standard_gd[:max_epoch_like]),
+        label="Standard GD / OLS Objective",
+        linestyle="--",
+    )
+
+    plt.xlabel("GD Iterations / SGD Epochs")
+    plt.ylabel("Objective Value (Log Scale)")
+    plt.title(
+        "Objective Value Comparison: GD vs. SGD vs. Standard GD "
+        f"(kappa={selected_kappa:.0e}, noise={selected_noise_std}, lambda={lambda_val})"
+    )
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTPUT_DIR, "4. gd_methods_objective_comparison.jpg"), dpi=300)
+    plt.close()
+
+
+    # --- Work-normalized distance comparison by data passes
     gd_data_passes = np.arange(len(distance_gd), dtype=float)
     standard_data_passes = np.arange(len(distance_standard_gd), dtype=float)
     sgd_updates = np.arange(len(distance_sgd), dtype=float)
@@ -169,9 +204,8 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "4. gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
+    plt.savefig(os.path.join(OUTPUT_DIR, "5. gd_methods_distance_to_optimum_work_normalized.jpg"), dpi=300)
     plt.close()
-
 
 # Run command: python -m scripts.run_gd_tradeoffs
 if __name__ == "__main__":

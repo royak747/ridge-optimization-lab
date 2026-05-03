@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import json
 import pickle
 from src.data_generation import generate_ill_conditioned_data
 from src.config import CONDITION_NUMBERS, NOISE_LEVELS, DATA_DIR, SEED, N_SAMPLES, N_FEATURES
@@ -37,6 +36,7 @@ def main():
 
             # Save datasets to disk for later use as json file
             # Save it as a dictionary where I can access as datasets.items()
+            os.makedirs(DATA_DIR, exist_ok=True)
             with open(os.path.join(DATA_DIR, "datasets.pkl"), "wb") as f:
                 pickle.dump(datasets, f)
 
